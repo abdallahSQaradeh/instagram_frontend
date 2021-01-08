@@ -1,0 +1,9 @@
+.login-box {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border: 1px solid #dbdbdb;
+  margin-top: 10px;
+}
