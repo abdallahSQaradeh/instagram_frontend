@@ -4,11 +4,15 @@
   "private": true,
   "homepage": "http://abdallahSQaradeh.github.io/my-app",
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "classnames": "^2.2.6",
     "lodash.clonedeep": "^4.5.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
@@ -22,7 +26,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
-    "_lint": "./node_modules/.bin/eslint src/*.js --fix",
+    "_lint": "eslint src/*.js --fix",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -71,5 +75,9 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
