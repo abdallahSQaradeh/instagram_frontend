@@ -192,35 +192,39 @@ export default function LoginForm() {
         <Divider>OR</Divider>
       </div>
       <div>
-        <Typography align="center">
-          <Link
-            fullWidth
-            className={classNames(
-              classes.btnText,
-              classes.nonDecoration,
-              style.loginFacebook
-            )}
-            variant="body2"
-          >
-            <Grid
-              container
-              alignItems="center"
-              justify="center"
-              direction="row"
-              spacing={1}
+        <Grid container justify="center">
+          <Grid item>
+            <Link
+              className={classNames(
+                classes.btnText,
+                classes.nonDecoration,
+                style.loginFacebook
+              )}
+              variant="body2"
             >
-              <Grid item>
-                <FacebookIcon />
+              <Grid container spacing={1} alignItems="center">
+                <Grid item className={style.loginFacebook}>
+                  <FacebookIcon />
+                </Grid>
+                <Grid item className={style.loginFacebook}>
+                  Log in with Facebook
+                </Grid>
               </Grid>
-              <Grid item>Log in with Facebook</Grid>
-            </Grid>
-          </Link>
-        </Typography>
+            </Link>
+          </Grid>
+        </Grid>
       </div>
       <div className={style.forgotPasswordContainer}>
-        <Typography variant="body2" align="center">
+        <Typography
+          variant="body2"
+          align="center"
+          className={style.forgotPassword}
+        >
           <Link
             className={classNames(style.forgotPassword, classes.nonDecoration)}
+            style={{
+              color: " #385185",
+            }}
           >
             Forgot password?
           </Link>
