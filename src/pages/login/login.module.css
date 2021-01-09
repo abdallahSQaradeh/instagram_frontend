@@ -1,24 +1,24 @@
 .login {
-    max-width: 350px;
-    background-color: #fff;
-    min-width: 350px;
-    height: 500px;
-    margin-top: 30px;
-  }
-  .logoContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 22px auto 12px;
-  }
-  .logo {
-    width: 55%;
-  }
-  
-  .form {
-    width: 100%;
-    height: auto;
-    background-color: #fff;
-    border: 1px solid#DBDBDB;
-    padding-bottom: 25px;
-  }
+  max-width: 350px;
+  background-color: #fff;
+  min-width: 350px;
+  height: 500px;
+  margin-top: 30px;
+}
+.logoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 22px auto 12px;
+}
+.logo {
+  width: 55%;
+}
+
+.form {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  border: 1px solid#DBDBDB;
+  padding-bottom: 25px;
+}
