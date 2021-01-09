@@ -29,4 +29,7 @@ export default makeStyles((theme) => ({
     lineHeight: "16px",
     margin: "15px 0px",
   },
+  textField: {
+    backgroundColor: "#fafafa",
+  },
 }));
