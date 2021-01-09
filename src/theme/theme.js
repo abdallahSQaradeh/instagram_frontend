@@ -22,14 +22,14 @@ export default createMuiTheme({
   overrides: {
     MuiOutlinedInput: {
       root: {
-        fontSize: "14px",
+        fontSize: "12px",
         fontWeight: 400,
         lineHeight: "16px",
       },
     },
     MuiInputLabel: {
       root: {
-        fontSize: "14px",
+        fontSize: "12px",
         lineHeight: "18px",
       },
     },

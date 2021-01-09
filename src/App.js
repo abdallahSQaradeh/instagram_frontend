@@ -3,8 +3,9 @@ import "./App.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { ThemeProvider } from "@material-ui/core";
-import SignUp from "./pages/sign-up/sign-up.index";
+// import SignUp from "./pages/sign-up/sign-up.index";
 import theme from "./theme/theme";
+import Login from "./pages/login/login.component";
 
 function App() {
   // const example = cloneDeep({ ex: "ex" });
@@ -17,7 +18,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <SignUp />
+        {/* <SignUp /> */}
+        <Login />
       </div>
     </ThemeProvider>
   );

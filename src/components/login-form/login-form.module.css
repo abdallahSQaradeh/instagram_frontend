@@ -1,0 +1,37 @@
+.subtitleHint {
+    margin: 0 40px 10px;
+  }
+  .facebook {
+    margin: 8px 40px;
+  }
+  .inputContainer {
+    margin: 0px 40px 6px;
+  }
+  .container {
+    margin: 8px 40px;
+  }
+  .mDivider {
+    margin: 10px 40px 18px;
+    color: #aaaaaa;
+    font-size: 14px;
+  }
+
+  .loginFacebook{
+      color:#385185;
+      font-weight: 600;
+
+  }
+  .forgotPassword{
+    color:#385185;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .forgotPasswordContainer{
+      margin-top:12px;
+  }
+  .form{
+      margin-top: 22px;
+  }
+  .mTop{
+      margin-top:15px;
+  }
