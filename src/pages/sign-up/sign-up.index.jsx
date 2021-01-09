@@ -1,11 +1,9 @@
 import React from "react";
-import { Grid, Link, Typography } from "@material-ui/core";
 import style from "./sign-up.module.css";
 import InstagramLogo from "../../assets/instagram_logo.svg.png";
 import SignUpForm from "../../components/sign-up-form/SignUpForm.component";
-import LoginBox from "../../components/login-box/login-box.component";
-import { ReactComponent as AppStore } from "../../assets/apple-app-store-badge.svg";
-import { ReactComponent as AndroidStore } from "../../assets/google-play-badge.svg";
+import RegisterBox from "../../components/register-box/register-box.component";
+import GetApp from "../../components/get-app/get-app.component";
 
 export default function SignUp(props) {
   return (
@@ -19,25 +17,9 @@ export default function SignUp(props) {
         </div>
       </div>
       <div>
-        <LoginBox />
+        <RegisterBox text="Have an account?" url="#" linkText="Login" />
       </div>
-      <div className={style.getApp}>
-        <Typography align="center" color="textPrimary" variant="body2">
-          Get the app.
-        </Typography>
-      </div>
-      <Grid container spacing={2} justify="center">
-        <Grid item xs={4}>
-          <Link href="#">
-            <AppStore />
-          </Link>
-        </Grid>
-        <Grid item xs={5}>
-          <Link href="#">
-            <AndroidStore />
-          </Link>
-        </Grid>
-      </Grid>
+      <GetApp />
     </div>
   );
 }
