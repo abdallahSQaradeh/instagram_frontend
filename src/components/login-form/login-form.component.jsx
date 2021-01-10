@@ -184,6 +184,7 @@ export default function LoginForm() {
           fullWidth
           variant="contained"
           color="primary"
+          className={classes.disabledButton}
         >
           Log In
         </Button>

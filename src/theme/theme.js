@@ -20,6 +20,10 @@ export default createMuiTheme({
     },
   },
   overrides: {
+    MuiLink: {
+      underlineHover: "none",
+    },
+
     MuiOutlinedInput: {
       root: {
         fontSize: "12px",
@@ -35,10 +39,20 @@ export default createMuiTheme({
     },
     MuiButton: {
       contained: {
-        "& .Mui-disabled": {
-          backgroundColor: "#000",
+        "&.Mui-disabled": {
+          backgroundColor: "#B2DFFC",
+          color: "#fff",
+          textTransform: "none",
         },
       },
     },
+
+    /* MuiCssBaseline: {
+      "@global": {
+        // override the pseudo-classes
+        ".Mui-disabled": { background: "#000" },
+        ".Mui-selected": { background: "red" },
+      },
+    }, */
   },
 });
