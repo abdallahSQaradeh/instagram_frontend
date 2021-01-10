@@ -5,12 +5,27 @@
   min-width: 100%;
 
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
 }
 html,
 body,
 #root,
 .App {
   height: 100%;
+}
+.main{
+
+  width:100%;
+  height:auto;
+  
+  
+}
+.inner-main{
+  margin-bottom: 44px;
+  display:flex;
+  justify-content: center;
+  min-height:100%;
+
 }

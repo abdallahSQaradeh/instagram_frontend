@@ -11,6 +11,13 @@ const useStyles = makeStyles({
   linkRight: {
     marginLeft: "10px",
   },
+  nonDecoration: {
+    textDecoration: "none",
+    cursor: "pointer",
+    "&:hover": {
+      textDecoration: "none",
+    },
+  },
 });
 export default function RegisterBox(props) {
   const { text, linkText, url } = props;
@@ -20,7 +27,12 @@ export default function RegisterBox(props) {
     <div className={style["login-box"]}>
       <Typography variant="body2" className={classes.loginBox}>
         {text}
-        <Link href={url} onClick={(e) => e.preventDefault()} color="primary">
+        <Link
+          className={classes.nonDecoration}
+          href={url}
+          onClick={(e) => e.preventDefault()}
+          color="primary"
+        >
           {` ${linkText}`}
         </Link>
       </Typography>

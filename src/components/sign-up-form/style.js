@@ -16,14 +16,7 @@ export default makeStyles((theme) => ({
   whiteColor: {
     color: "#fff",
   },
-  disabledButton: {
-    backgroundColor: "#0094F4",
-    margin: "10px 0px",
-    "&.disabled": {
-      color: "white",
-      backgroundColor: "#B2DFFC",
-    },
-  },
+
   moreTextInfo: {
     fontSize: "12px",
     lineHeight: "16px",
@@ -38,5 +31,18 @@ export default makeStyles((theme) => ({
     "&:hover": {
       textDecoration: "none",
     },
+  },
+  disabledButton: {
+    "&.Mui-disabled": {
+      backgroundColor: "#B2DFFC",
+      color: "#fff",
+      textTransform: "none",
+    },
+
+    /* margin: "10px 0px",
+    "&.disabled": {
+      color: "white",
+      backgroundColor: "#B2DFFC",
+    }, */
   },
 }));
