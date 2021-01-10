@@ -15,17 +15,13 @@ body,
 .App {
   height: 100%;
 }
-.main{
-
-  width:100%;
-  height:auto;
-  
-  
+.main {
+  width: 100%;
+  height: auto;
 }
-.inner-main{
+.inner-main {
   margin-bottom: 44px;
-  display:flex;
+  display: flex;
   justify-content: center;
-  min-height:100%;
-
+  min-height: 100%;
 }
