@@ -3,9 +3,11 @@ import "./App.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { ThemeProvider } from "@material-ui/core";
-import SignUp from "./pages/sign-up/sign-up.index";
+// import SignUp from "./pages/sign-up/sign-up.index";
 import theme from "./theme/theme";
+
 // import Login from "./pages/login/login.component";
+import Navbar from "./components/navbar/navbar.component";
 import Footer from "./components/footer/footer.component";
 
 function App() {
@@ -20,9 +22,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <main className="main">
+          <Navbar />
           <div className="inner-main">
-            {/*  <Login /> */}
-            <SignUp />
+            {/*  <Login />
+            <SignUp /> */}
           </div>
         </main>
 

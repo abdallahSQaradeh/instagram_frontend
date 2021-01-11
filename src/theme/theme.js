@@ -46,6 +46,22 @@ export default createMuiTheme({
         },
       },
     },
+    MuiIconButton: {
+      root: {
+        padding: 0,
+        margin: "12px",
+        color: "#262626",
+        fontSize: "1.8rem",
+        "&:hover": {
+          backgroundColor: "transparent",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        fontSize: "1.8rem",
+      },
+    },
 
     /* MuiCssBaseline: {
       "@global": {
