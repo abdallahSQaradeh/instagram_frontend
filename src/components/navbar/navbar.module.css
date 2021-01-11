@@ -1,26 +1,26 @@
-.navbar{
-    height:53px;
-    min-width: 53px;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background-color: #fff;
+.navbar {
+  height: 53px;
+  min-width: 53px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 }
-.navbarContent{
-    max-width:975px;
-    width:975px;
-    padding:0 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.navbarContent {
+  max-width: 975px;
+  width: 975px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.logo{
-    margin-top: 7px;
-    height: 29px;
-    min-width:41px;
-    width:103px;
+.logo {
+  margin-top: 7px;
+  height: 29px;
+  min-width: 41px;
+  width: 103px;
 }
-.shrink{
-    flex: 0 0 0%;
+.shrink {
+  flex: 0 0 0%;
 }
