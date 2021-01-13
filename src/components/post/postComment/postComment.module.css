@@ -1,0 +1,19 @@
+.commentSection {
+  font-size: 14px;
+  line-height: 18px;
+  min-height: 56px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.postInput {
+  border: none;
+  outline: none;
+  height: auto;
+  width: 100%;
+  max-height: 80px;
+  height: 16px;
+  resize: none;
+  display: flex;
+  flex-grow: 1;
+}
