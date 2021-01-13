@@ -1,0 +1,37 @@
+.searchField {
+  position: relative;
+  font-size: 14px;
+  color: #dbdbdb;
+  width: 215px;
+}
+.search {
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  padding-left: 22px;
+  transition: all ease-in-out 0.5s;
+  padding: 3px 10px 3px 26px;
+}
+.search::placeholder {
+  position: absolute;
+  left: 70px;
+}
+.search:focus ~ .searchIcon {
+  transform: translateX(-70px);
+}
+.search:focus {
+  outline: none;
+  border-color: #dbdbdb;
+}
+.search:focus ~ .placeholder {
+  display: none;
+}
+.searchIcon {
+  position: absolute;
+  top: 4px;
+  left: 77px;
+}
+.placeholder {
+  position: absolute;
+  top: 1px;
+  left: 92px;
+}
