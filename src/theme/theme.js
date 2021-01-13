@@ -45,6 +45,12 @@ export default createMuiTheme({
           textTransform: "none",
         },
       },
+      root: {
+        "&.Mui-disabled": {
+          color: "#B2DFFC",
+          fontSize: "12px",
+        },
+      },
     },
     MuiIconButton: {
       root: {
@@ -62,7 +68,19 @@ export default createMuiTheme({
         fontSize: "1.8rem",
       },
     },
-
+    MuiCardContent: {
+      root: {
+        padding: "0 16px",
+        "&:last-child": {
+          paddingBottom: 0,
+        },
+      },
+    },
+    MuiCardActions: {
+      root: {
+        padding: "0 16px",
+      },
+    },
     /* MuiCssBaseline: {
       "@global": {
         // override the pseudo-classes

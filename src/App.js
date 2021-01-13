@@ -9,6 +9,7 @@ import theme from "./theme/theme";
 // import Login from "./pages/login/login.component";
 import Navbar from "./components/navbar/navbar.component";
 import Footer from "./components/footer/footer.component";
+import Home from "./pages/home/home.component";
 
 function App() {
   // const example = cloneDeep({ ex: "ex" });
@@ -26,6 +27,7 @@ function App() {
           <div className="inner-main">
             {/*  <Login />
             <SignUp /> */}
+            <Home />
           </div>
         </main>
 

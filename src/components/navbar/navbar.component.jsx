@@ -13,6 +13,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import styles from "./navbar.module.css";
 import InstagramLogo from "../../assets/instagram_logo.svg.png";
+import Search from "../search/search.component";
 
 export default function Navbar() {
   const [icons, setIcons] = useState({
@@ -43,13 +44,19 @@ export default function Navbar() {
           direction="row"
           alignItems="center"
           justify="space-between"
-          wrap="wrap"
+          wrap="nowrap"
         >
-          <Grid item xs={4} className={styles.shrink}>
+          <Grid
+            item
+            xs={4}
+            className={styles.shrink}
+            container
+            justify="flex-start"
+          >
             <img src={InstagramLogo} alt="logo" className={styles.logo} />
           </Grid>
-          <Grid item xs={3}>
-            <input type="search" />
+          <Grid item xs={3} container>
+            <Search />
           </Grid>
           <Grid
             item
@@ -57,6 +64,7 @@ export default function Navbar() {
             direction="row"
             alignItems="center"
             xs={4}
+            justify="flex-end"
             wrap="nowrap"
           >
             <Grid item>

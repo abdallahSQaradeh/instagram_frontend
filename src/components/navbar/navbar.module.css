@@ -6,6 +6,10 @@
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  border-bottom: 1px solid #dbdbdb;
+  position: sticky;
+  top:0;
+  z-index: 4;
 }
 .navbarContent {
   max-width: 975px;
