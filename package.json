@@ -49,7 +49,11 @@
       "prop": "parens",
       "react/jsx-wrap-multilines": [
         "error",
-        { "arrow": true, "return": true, "declaration": true }
+        {
+          "arrow": true,
+          "return": true,
+          "declaration": true
+        }
       ]
     }
   },
