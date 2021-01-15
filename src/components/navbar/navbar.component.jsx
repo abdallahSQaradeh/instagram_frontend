@@ -48,14 +48,14 @@ export default function Navbar() {
         >
           <Grid
             item
-            xs={4}
+            xs={2}
             className={styles.shrink}
             container
             justify="flex-start"
           >
             <img src={InstagramLogo} alt="logo" className={styles.logo} />
           </Grid>
-          <Grid item xs={3} container>
+          <Grid item xs={2} container justify="center">
             <Search />
           </Grid>
           <Grid

@@ -24,6 +24,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import PropTypes from "prop-types";
 
 import styled from "styled-components";
+import { Link } from "@material-ui/core";
 import PostComment from "./postComment/postComment.component";
 import useStyles from "./style";
 import CommentItem from "./commentItem/commentItem.component";
@@ -42,7 +43,7 @@ const getImageSize = (src) => {
 };
 
 export default function Post(props) {
-  const { src } = props;
+  const { src, setMore, setLikes } = props;
 
   const [imageSize, setImageSize] = useState({});
   const [saved, setSaved] = useState(false);
@@ -66,6 +67,7 @@ export default function Post(props) {
   };
   useEffect(() => {
     const [width, height] = getImageSize(src);
+    console.log(width, height);
     setImageSize({ width, height });
   }, [src]);
 
@@ -75,6 +77,7 @@ export default function Post(props) {
   return (
     <Card className={classes.root}>
       <CardHeader
+        className={classes.postHeader}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             <img
@@ -88,8 +91,8 @@ export default function Post(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreHorizIcon />
+          <IconButton aria-label="settings" onClick={setMore}>
+            <MoreHorizIcon className={classes.horizontalMore} />
           </IconButton>
         }
         title="user"
@@ -121,6 +124,7 @@ export default function Post(props) {
         </IconButton>
       </CardActions>
       <CardContent className={classes.content}>
+        <Link onClick={setLikes}>33 likes</Link>
         <Typography
           variant="body2"
           color="textPrimary"
@@ -176,4 +180,6 @@ export default function Post(props) {
 }
 Post.propTypes = {
   src: PropTypes.string.isRequired,
+  setMore: PropTypes.func.isRequired,
+  setLikes: PropTypes.func.isRequired,
 };

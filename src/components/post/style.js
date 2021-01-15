@@ -9,7 +9,11 @@ export default makeStyles((theme) => ({
     display: "flex",
     flex: "0 1 935px",
     minWidth: "500px",
+    border: "1px solid #dbdbdb",
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "380px",
+    },
   },
   user: {
     fontWeight: "500",
@@ -59,5 +63,11 @@ export default makeStyles((theme) => ({
   },
   postFooter: {
     padding: "0 0 0 16px",
+  },
+  horizontalMore: {
+    fontSize: "1.5rem",
+  },
+  postHeader: {
+    fontWeight: "bold",
   },
 }));

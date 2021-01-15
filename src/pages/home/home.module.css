@@ -5,7 +5,7 @@
   height: 100%;
   display: flex;
   position: relative;
-  padding-top: 60px;
+  padding-top: 30px;
 }
 .dashboard {
   margin-right: 28px;
@@ -13,8 +13,15 @@
   width: 100%;
 }
 .suggestedUsers {
+
+  top: 80px;
   position: fixed;
-  top: 60px;
+  width: 300px;
+  height: 600px;
+ 
+}
+.suggestionContainer{
+  width:300px;
 }
 .stories {
   background-color: #fff;
@@ -22,5 +29,5 @@
   margin-bottom: 24px;
   margin-top: 0;
   padding: 16px 0;
-  border: 1px solid #bdbdbd;
+  border: 1px solid #dbdbdb;
 }

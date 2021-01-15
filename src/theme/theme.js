@@ -21,7 +21,10 @@ export default createMuiTheme({
   },
   overrides: {
     MuiLink: {
-      underlineHover: "none",
+      underlineHover: {
+        textDecoration: "none",
+        cursor: "pointer",
+      },
     },
 
     MuiOutlinedInput: {
@@ -79,6 +82,11 @@ export default createMuiTheme({
     MuiCardActions: {
       root: {
         padding: "0 16px",
+      },
+    },
+    MuiDialog: {
+      paper: {
+        borderRadius: "20px",
       },
     },
     /* MuiCssBaseline: {
