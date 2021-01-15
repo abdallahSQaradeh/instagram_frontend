@@ -21,7 +21,10 @@ export default createMuiTheme({
   },
   overrides: {
     MuiLink: {
-      underlineHover: "none",
+      underlineHover: {
+        textDecoration: "none",
+        cursor: "pointer",
+      },
     },
 
     MuiOutlinedInput: {
@@ -45,8 +48,47 @@ export default createMuiTheme({
           textTransform: "none",
         },
       },
+      root: {
+        "&.Mui-disabled": {
+          color: "#B2DFFC",
+          fontSize: "12px",
+        },
+      },
     },
-
+    MuiIconButton: {
+      root: {
+        padding: 0,
+        margin: "12px",
+        color: "#262626",
+        fontSize: "1.8rem",
+        "&:hover": {
+          backgroundColor: "transparent",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        fontSize: "1.8rem",
+      },
+    },
+    MuiCardContent: {
+      root: {
+        padding: "0 16px",
+        "&:last-child": {
+          paddingBottom: 0,
+        },
+      },
+    },
+    MuiCardActions: {
+      root: {
+        padding: "0 16px",
+      },
+    },
+    MuiDialog: {
+      paper: {
+        borderRadius: "20px",
+      },
+    },
     /* MuiCssBaseline: {
       "@global": {
         // override the pseudo-classes

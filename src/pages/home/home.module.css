@@ -1,0 +1,31 @@
+.home {
+  max-width: 935px;
+
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  position: relative;
+  padding-top: 30px;
+}
+.dashboard {
+  margin-right: 28px;
+  max-width: 614px;
+  width: 100%;
+}
+.suggestedUsers {
+  top: 80px;
+  position: fixed;
+  width: 300px;
+  height: 600px;
+}
+.suggestionContainer {
+  width: 300px;
+}
+.stories {
+  background-color: #fff;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  margin-top: 0;
+  padding: 16px 0;
+  border: 1px solid #dbdbdb;
+}
