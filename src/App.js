@@ -16,20 +16,25 @@ function App() {
   // const example = cloneDeep({ ex: "ex" });
   // console.log(example);
   const [hideFooter, setHideFooter] = useState(false);
+  const [openPost, setOpenPost] = useState(false);
   useEffect(() => {
     axios.get("http://localhost:8000/api/users/").then((res) => {
-      console.log(res.data);
+      console.log(res.data, openPost);
     });
   });
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <main className="main">
-          <Navbar />
+          <Navbar setOpenPost={setOpenPost} />
           <div className="inner-main">
             {/*  <Login />
             <SignUp /> */}
-            <Home hideFooter={setHideFooter} />
+            <Home
+              setOpenPost={setOpenPost}
+              openPost={openPost}
+              hideFooter={setHideFooter}
+            />
           </div>
         </main>
 

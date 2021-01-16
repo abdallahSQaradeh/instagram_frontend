@@ -9,7 +9,8 @@
   border: 1px solid #dbdbdb;
   padding-left: 22px;
   transition: all ease-in-out 0.5s;
-  padding: 3px 10px 3px 26px;
+
+  padding: 7px 10px 7px 26px;
 }
 .search::placeholder {
   position: absolute;
@@ -27,11 +28,11 @@
 }
 .searchIcon {
   position: absolute;
-  top: 4px;
+  top: 8px;
   left: 77px;
 }
 .placeholder {
   position: absolute;
-  top: 1px;
+  top: 4px;
   left: 92px;
 }
