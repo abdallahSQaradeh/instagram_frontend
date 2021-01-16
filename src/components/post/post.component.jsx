@@ -43,12 +43,12 @@ const getImageSize = (src) => {
 };
 
 export default function Post(props) {
-  const { src, setMore, setLikes } = props;
+  const { src, setMore, setLikes, caption } = props;
 
   const [imageSize, setImageSize] = useState({});
   const [saved, setSaved] = useState(false);
   const [comments, setComments] = useState([]);
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
   const classes = useStyles(props);
   const handleExpandClick = () => {
@@ -124,7 +124,7 @@ export default function Post(props) {
         </IconButton>
       </CardActions>
       <CardContent className={classes.content}>
-        <Link onClick={setLikes}>33 likes</Link>
+        {liked ? <Link onClick={setLikes}>1 like</Link> : null}
         <Typography
           variant="body2"
           color="textPrimary"
@@ -137,27 +137,23 @@ export default function Post(props) {
             color="textPrimary"
             className={classes.user}
           >
-            {`user `}
+            {caption.length > 0 ? `user ` : null}
           </Typography>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {caption}
         </Typography>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          more
-        </IconButton>
+        {caption.length > 100 ? (
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            more
+          </IconButton>
+        ) : null}
       </CardContent>
-
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        {content}
-          </Collapse> */}
       <CardContent className={classes.comments}>
         <div>
           {comments.map((comment, xc) => {
@@ -182,4 +178,5 @@ Post.propTypes = {
   src: PropTypes.string.isRequired,
   setMore: PropTypes.func.isRequired,
   setLikes: PropTypes.func.isRequired,
+  caption: PropTypes.func.isRequired,
 };
