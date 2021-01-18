@@ -89,6 +89,13 @@ export default createMuiTheme({
         borderRadius: "20px",
       },
     },
+    MuiGridList: {
+      root: {
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      },
+    },
     /* MuiCssBaseline: {
       "@global": {
         // override the pseudo-classes
