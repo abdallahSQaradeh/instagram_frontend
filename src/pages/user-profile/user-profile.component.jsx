@@ -34,10 +34,9 @@ export default function UserProfile(props) {
         className={classes.divider}
       />
       <FragmentBar />
-      <Grid item container>
-        {/** <PostGridList /> */}
+      <div style={{ marginTop: 10 }}>
         <Posts />
-      </Grid>
+      </div>
       {openPost ? <PostUploaderModal setOpenPost={setOpenPost} /> : null}
     </Grid>
   );

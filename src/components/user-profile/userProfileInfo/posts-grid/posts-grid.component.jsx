@@ -1,156 +1,92 @@
-import { Grid, Typography } from "@material-ui/core";
+/* eslint-disable no-nested-ternary */
+import { Grid, Typography, makeStyles, Link } from "@material-ui/core";
 import { Favorite, ModeComment } from "@material-ui/icons";
-import River from "../../../../assets/rivver.jpg";
+import { useSelector } from "react-redux";
+import clsx from "clsx";
 import styles from "./style.module.css";
 
+const useStyles = makeStyles((theme) => {
+  return {
+    col: {
+      [theme.breakpoints.down("sm")]: {
+        padding: theme.spacing(2),
+      },
+      [theme.breakpoints.down("xs")]: {
+        padding: theme.spacing(0.5),
+      },
+      "&.MuiGrid-item": {
+        padding: 2,
+      },
+    },
+  };
+});
 export default function PostsGrid(props) {
+  const classes = useStyles();
+  const posts = useSelector((state) => state.posts);
+  const postsRows = [];
+  let row = [];
+  for (let start = 0; start < posts.length; start += 3) {
+    row = posts.slice(start, start + 3);
+    postsRows.push(row);
+  }
+
   return (
-    <Grid
-      container
-      direction="row"
-      style={{ marginTop: 20, height: "auto" }}
-      justify="flex-start"
-      spacing={2}
-      item
-    >
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
+    <>
+      {postsRows.map((currentRow, id) => {
+        return (
           <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
-            direction="row"
+            key={`${id + 1}row`}
             container
-            spacing={1}
-          >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
-          <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
             direction="row"
-            container
-            spacing={1}
+            style={{
+              margin: 0,
+              marginTop: 2,
+              maxHeight: 293,
+              overflow: "hidden",
+              flex: "0 0 auto",
+            }}
+            justify="flex-start"
+            spacing={3}
+            item
           >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
+            {currentRow.map((post, i) => (
+              <Grid
+                item
+                xs={4}
+                key={`${i + id + 33}_post`}
+                className={clsx(styles.post, classes.col)}
+              >
+                <div
+                  style={{ width: "100%" }}
+                  className={styles["post-composition"]}
+                >
+                  <Link onClick={() => {}}>
+                    <img src={post.src} alt="sd" className={styles.image} />
+                    <Grid
+                      style={{ color: "#fff" }}
+                      className={styles.postModal}
+                      justify="center"
+                      alignItems="center"
+                      direction="row"
+                      container
+                      spacing={1}
+                    >
+                      <Grid item container xs={3} alignItems="center">
+                        <Favorite />
+                        <Typography component="span">{0}</Typography>
+                      </Grid>
+                      <Grid item container xs={3} alignItems="center">
+                        <ModeComment />
+                        <Typography component="span">{0}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Link>
+                </div>
+              </Grid>
+            ))}
           </Grid>
-        </div>
-      </Grid>
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
-          <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
-            direction="row"
-            container
-            spacing={1}
-          >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
-          <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
-            direction="row"
-            container
-            spacing={1}
-          >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
-          <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
-            direction="row"
-            container
-            spacing={1}
-          >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-      <Grid item xs={4} className={styles.post}>
-        <div style={{ width: "100%" }} className={styles.post}>
-          <img src={River} alt="sd" className={styles.image} />
-          <Grid
-            style={{ color: "#fff" }}
-            className={styles.postModal}
-            justify="center"
-            alignItems="center"
-            direction="row"
-            container
-            spacing={1}
-          >
-            <Grid item container xs={3} alignItems="center">
-              <Favorite />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-            <Grid item container xs={3} alignItems="center">
-              <ModeComment />
-              <Typography component="span">{0}</Typography>
-            </Grid>
-          </Grid>
-        </div>
-      </Grid>
-    </Grid>
+        );
+      })}
+    </>
   );
 }

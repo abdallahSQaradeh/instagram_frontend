@@ -88,7 +88,14 @@ export default function FragmentBar() {
     tagged,
   });
   return (
-    <Grid container justify="center" spacing={4} style={{ marginTop: "-1px" }}>
+    <Grid
+      container
+      item
+      justify="center"
+      spacing={4}
+      style={{ marginTop: "-1px" }}
+      alignItems="center"
+    >
       <Grid
         className={classes.fragmentContainer}
         item
