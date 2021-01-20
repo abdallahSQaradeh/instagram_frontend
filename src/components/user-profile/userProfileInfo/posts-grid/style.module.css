@@ -13,17 +13,17 @@
   transform: translateY(0);
 }
 .post {
-  height:auto;
- flex: 1 0 0%;
+  height: auto;
+  flex: 1 0 0%;
   position: relative;
   overflow: hidden;
   box-sizing: content-box;
 }
-.post-composition{
-   height:100%;
-   object-fit: cover;
-    position: relative;
-    overflow: hidden;
+.post-composition {
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
 }
 .image {
   object-fit: cover;
