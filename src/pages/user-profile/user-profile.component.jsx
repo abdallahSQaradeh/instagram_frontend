@@ -1,10 +1,12 @@
 import { Divider, Grid, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
+import { useState } from "react";
 import FragmentBar from "../../components/fragment-bar/fragment-bar.component";
 // import PostGridList from "../../components/user-profile/userProfileInfo/posts-container/posts-container";
 import Posts from "../../components/user-profile/userProfileInfo/posts-grid/posts-grid.component";
 import UserInformation from "../../components/user-profile/userProfileInfo/userProfileInfo.component";
 import PostUploaderModal from "../../components/post-uploader/postUploaderModal.component";
+import PostDetailModal from "../../components/post-detail/post-detail.component";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => {
 });
 export default function UserProfile(props) {
   const { setOpenPost, openPost } = props;
+  const [detailedPost, setDetailedPost] = useState(null);
   const classes = useStyles();
   return (
     <Grid container className={classes.userProfileContainer} direction="column">
@@ -35,9 +38,15 @@ export default function UserProfile(props) {
       />
       <FragmentBar />
       <div style={{ marginTop: 10 }}>
-        <Posts />
+        <Posts setDetailedPost={setDetailedPost} />
       </div>
       {openPost ? <PostUploaderModal setOpenPost={setOpenPost} /> : null}
+      {detailedPost ? (
+        <PostDetailModal
+          detailedPost={() => detailedPost}
+          setDetailedPost={setDetailedPost}
+        />
+      ) : null}
     </Grid>
   );
 }

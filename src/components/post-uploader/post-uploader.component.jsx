@@ -8,13 +8,8 @@ import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
-import SearchIcon from "@material-ui/icons/Search";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -106,44 +101,6 @@ export default function ImageUploadCard(props) {
     setImageUploaded(1);
   };
 
-  const handleImageSearch = (url) => {
-    const filename = url.substring(url.lastIndexOf("/") + 1);
-    console.log(filename, url, "we are here");
-    setMainState("uploaded");
-    setSelectedFile(url);
-    setImageSrc(url);
-    setImageUploaded(true);
-  };
-
-  const handleSearchClose = (event) => {
-    // console.log(filename);
-    setMainState("initial");
-  };
-
-  const renderSearchState = () => {
-    return (
-      <Paper className={classes.searchRoot} elevation={1}>
-        <InputBase className={classes.searchInput} placeholder="Image URL" />
-        <IconButton
-          className={classes.button}
-          aria-label="Search"
-          onClick={handleImageSearch}
-        >
-          <SearchIcon />
-        </IconButton>
-        <Divider className={classes.searchDivider} />
-        <IconButton
-          color="primary"
-          className={classes.secondaryButton}
-          aria-label="Close"
-          onClick={handleSearchClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Paper>
-    );
-  };
-
   const renderUploadedState = () => {
     return (
       <>
@@ -195,7 +152,6 @@ export default function ImageUploadCard(props) {
       <div className={classes.root}>
         <Card className={cardName}>
           {(mainState === "initial" && renderInitialState()) ||
-            (mainState === "search" && renderSearchState()) ||
             // (mainState === "gallery" && renderGalleryState()) ||
             (mainState === "uploaded" && renderUploadedState())}
         </Card>

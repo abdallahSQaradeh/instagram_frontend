@@ -2,6 +2,7 @@
 import { Grid, Typography, makeStyles, Link } from "@material-ui/core";
 import { Favorite, ModeComment } from "@material-ui/icons";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import clsx from "clsx";
 import styles from "./style.module.css";
 
@@ -15,13 +16,14 @@ const useStyles = makeStyles((theme) => {
         padding: theme.spacing(0.5),
       },
       "&.MuiGrid-item": {
-        padding: 2,
+        // padding: "inherit",
       },
     },
   };
 });
 export default function PostsGrid(props) {
   const classes = useStyles();
+  const { setDetailedPost } = props;
   const posts = useSelector((state) => state.posts);
   const postsRows = [];
   let row = [];
@@ -29,6 +31,9 @@ export default function PostsGrid(props) {
     row = posts.slice(start, start + 3);
     postsRows.push(row);
   }
+  const handleClickedPost = (post) => {
+    setDetailedPost(post);
+  };
 
   return (
     <>
@@ -46,7 +51,7 @@ export default function PostsGrid(props) {
               flex: "0 0 auto",
             }}
             justify="flex-start"
-            spacing={3}
+            spacing={1}
             item
           >
             {currentRow.map((post, i) => (
@@ -60,7 +65,7 @@ export default function PostsGrid(props) {
                   style={{ width: "100%" }}
                   className={styles["post-composition"]}
                 >
-                  <Link onClick={() => {}}>
+                  <Link onClick={() => handleClickedPost(post)}>
                     <img src={post.src} alt="sd" className={styles.image} />
                     <Grid
                       style={{ color: "#fff" }}
@@ -90,3 +95,6 @@ export default function PostsGrid(props) {
     </>
   );
 }
+PostsGrid.propTypes = {
+  setDetailedPost: PropTypes.func.isRequired,
+};
