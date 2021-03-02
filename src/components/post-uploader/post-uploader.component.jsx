@@ -1,159 +1,99 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from "react";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import Fab from "@material-ui/core/Fab";
-import Grid from "@material-ui/core/Grid";
-import red from "@material-ui/core/colors/red";
-import blue from "@material-ui/core/colors/blue";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import IconButton from "@material-ui/core/IconButton";
+import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core";
+import Initial from "./Initial";
+import Cropper from "./image-cropper.component";
+import getCroppedImg from "./cropImage";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-end",
-  },
-  icon: {
-    margin: theme.spacing.unit * 2,
-  },
-  iconHover: {
-    margin: theme.spacing.unit * 2,
-    "&:hover": {
-      color: red[800],
+const useStyles = makeStyles(
+  makeStyles((theme) => ({
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "flex-end",
     },
-  },
-  cardHeader: {
-    textalign: "center",
-    align: "center",
-    backgroundColor: "white",
-  },
-  input: {
-    display: "none",
-  },
-  title: {
-    color: blue[800],
-    fontWeight: "bold",
-    fontFamily: "Montserrat",
-    align: "center",
-  },
-  button: {
-    color: blue[900],
-    margin: 10,
-  },
-  secondaryButton: {
-    color: "gray",
-    margin: 10,
-  },
-  typography: {
-    margin: theme.spacing.unit * 2,
-    backgroundColor: "default",
-  },
-
-  searchRoot: {
-    padding: "2px 4px",
-    display: "flex",
-    alignItems: "center",
-    width: 400,
-  },
-  searchInput: {
-    marginLeft: 8,
-    flex: 1,
-  },
-  searchIconButton: {
-    padding: 10,
-  },
-  searchDivider: {
-    width: 1,
-    height: 28,
-    margin: 4,
-  },
-}));
-
+  }))
+);
 export default function ImageUploadCard(props) {
-  const [mainState, setMainState] = useState("initial"); // initial, search, gallery, uploaded
-  const [imageUploaded, setImageUploaded] = useState(0);
+  const [mainState, setMainState] = useState("initial");
   const [selectedFile, setSelectedFile] = useState(null);
   const { cardName, setImageSrc } = props;
   const classes = useStyles();
-
+  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
   const handleUploadClick = (event) => {
-    console.log(event, "here----------------------------");
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    const url = reader.readAsDataURL(file);
-    console.log("hree is reader", reader);
-    reader.onloadend = function (e) {
-      setSelectedFile([reader.result]);
-      setImageSrc(reader.result);
-      console.log(url, imageUploaded, reader, "---------------------------"); // Would see a path?
-    };
+    try {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    setMainState("uploaded");
-    setSelectedFile(event.target.files[0]);
+      reader.onloadend = (e) => {
+        setSelectedFile(reader.result);
+        setImageSrc(reader.result);
+      };
+
+      setMainState("uploaded");
+      setSelectedFile(event.target.files[0]);
+      console.log(setSelectedFile, zoom, setZoom, crop, setCrop);
+    } catch (e) {
+      console.log(e);
+    }
+
     // setPostInfo({ src: event.target.files[0] });
-    setImageUploaded(1);
   };
 
-  const renderUploadedState = () => {
-    return (
-      <>
-        <CardActionArea onClick={imageResetHandler}>
-          <img
-            width="100%"
-            className={classes.media}
-            src={selectedFile}
-            alt="ss"
-          />
-        </CardActionArea>
-      </>
-    );
-  };
+  const onCropComplete = useCallback(
+    async (croppedArea, _croppedAreaPixels) => {
+      setCroppedAreaPixels(_croppedAreaPixels);
+      try {
+        const croppedImageR = await getCroppedImg(
+          selectedFile,
+          croppedAreaPixels
+        );
+        console.log("donee", { croppedImage });
+        setCroppedImage(croppedImageR);
+        setImageSrc(croppedImageR);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [croppedAreaPixels, croppedImage, selectedFile, setImageSrc]
+  );
 
-  const imageResetHandler = (event) => {
+  /* const onClose = useCallback(() => {
+    setCroppedImage(null);
+  }, []); */
+
+  /* const imageResetHandler = (event) => {
     console.log("Click!");
     setMainState("initial");
     setSelectedFile(null);
     setImageUploaded(0);
-  };
+  }; */
 
-  const renderInitialState = () => {
-    return (
-      <>
-        <CardContent>
-          <Grid container justify="center" alignItems="center">
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="contained-button-file"
-              type="file"
-              onChange={handleUploadClick}
-            />
-            <IconButton>
-              <label htmlFor="contained-button-file">
-                <Fab component="span" className={classes.button}>
-                  <AddPhotoAlternateIcon />
-                </Fab>
-              </label>
-            </IconButton>
-          </Grid>
-        </CardContent>
-      </>
-    );
-  };
   return (
     <>
       <div className={classes.root}>
         <Card className={cardName}>
-          {(mainState === "initial" && renderInitialState()) ||
-            // (mainState === "gallery" && renderGalleryState()) ||
-            (mainState === "uploaded" && renderUploadedState())}
+          {(mainState === "initial" && (
+            <Initial handleUploadClick={handleUploadClick} />
+          )) ||
+            (mainState === "uploaded" && (
+              <Cropper
+                src={selectedFile}
+                zoom={zoom}
+                setZoom={setZoom}
+                crop={crop}
+                setCrop={setCrop}
+                onCropComplete={onCropComplete}
+              />
+            ))}
         </Card>
       </div>
     </>

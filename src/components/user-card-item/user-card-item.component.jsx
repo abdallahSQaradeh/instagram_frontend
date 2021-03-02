@@ -14,7 +14,6 @@ import {
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => {
-  console.log(theme);
   return {
     root: {
       width: "100%",

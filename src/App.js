@@ -1,46 +1,54 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-// import cloneDeep from "lodash.clonedeep";
-import axios from "axios";
+/* eslint-disable prettier/prettier */
 
+import "./App.css";
 import { ThemeProvider } from "@material-ui/core";
-// import SignUp from "./pages/sign-up/sign-up.index";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import MoreModal from "./pages/home/modals/more.modal";
+import PrivateRouter from "./routers/private-router";
 import theme from "./theme/theme";
 
-// import Login from "./pages/login/login.component";
+import Login from "./pages/login/login.component";
 import Navbar from "./components/navbar/navbar.component";
 import Footer from "./components/footer/footer.component";
-// import Home from "./pages/home/home.component";
+import Home from "./pages/home/home.component";
 import UserProfile from "./pages/user-profile/user-profile.component";
+import SignUp from "./pages/sign-up/sign-up.index";
+import PostUploaderModal from "./components/post-uploader/postUploaderModal.component";
 
 function App() {
-  // const example = cloneDeep({ ex: "ex" });
-  // console.log(example);
-  const [hideFooter /* , setHideFooter */] = useState(false);
-  const [openPost, setOpenPost] = useState(false);
-  useEffect(() => {
-    axios.get("http://localhost:8000/api/users/").then((res) => {
-      console.log(res.data, openPost);
-    });
-  });
+  const modals = useSelector((state) => state.modal);
+  const ui = useSelector((state) => state.ui);
+  const history = useHistory();
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <main className="main">
-          <Navbar setOpenPost={setOpenPost} />
+          {history.location.pathname === "/login" ||
+          history.location.pathname === "/signup" ? null : (
+            <Navbar />
+          )}
           <div className="inner-main">
-            {/*  <Login />
-            <SignUp /> 
-            <Home
-              setOpenPost={setOpenPost}
-              openPost={openPost}
-              hideFooter={setHideFooter}
-            /> */}
-            <UserProfile setOpenPost={setOpenPost} openPost={openPost} />
+            <Switch>
+              <Route path="/profile">
+                <UserProfile />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/signup">
+                <SignUp />
+              </Route>
+              <PrivateRouter path="" component={Home} exact={false} />
+            </Switch>
           </div>
         </main>
 
-        {hideFooter ? null : <Footer />}
+        {modals.postDetailModal ? <div> yes </div> : null}
+        {modals.postMoreModal ? <MoreModal /> : null}
+        {modals.postUploadModal ? <PostUploaderModal /> : null}
+
+        {ui.footer ? <Footer /> : null}
       </div>
     </ThemeProvider>
   );

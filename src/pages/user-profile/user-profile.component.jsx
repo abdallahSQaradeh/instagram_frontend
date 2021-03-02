@@ -1,12 +1,11 @@
 import { Divider, Grid, makeStyles } from "@material-ui/core";
-import PropTypes from "prop-types";
+
 import { useState } from "react";
 import FragmentBar from "../../components/fragment-bar/fragment-bar.component";
 // import PostGridList from "../../components/user-profile/userProfileInfo/posts-container/posts-container";
-import Posts from "../../components/user-profile/userProfileInfo/posts-grid/posts-grid.component";
+import Posts from "../../components/user-profile/userProfileInfo/image-gallery/image-gallery.component";
 import UserInformation from "../../components/user-profile/userProfileInfo/userProfileInfo.component";
-import PostUploaderModal from "../../components/post-uploader/postUploaderModal.component";
-import PostDetailModal from "../../components/post-detail/post-detail.component";
+// import PostDetailModal from "../../components/post-detail/post-detail.component";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -22,7 +21,6 @@ const useStyles = makeStyles((theme) => {
   };
 });
 export default function UserProfile(props) {
-  const { setOpenPost, openPost } = props;
   const [detailedPost, setDetailedPost] = useState(null);
   const classes = useStyles();
   return (
@@ -37,20 +35,17 @@ export default function UserProfile(props) {
         className={classes.divider}
       />
       <FragmentBar />
-      <div style={{ marginTop: 10 }}>
+      <div style={{ marginTop: 10, display: "flex", flexDirection: "column" }}>
         <Posts setDetailedPost={setDetailedPost} />
       </div>
-      {openPost ? <PostUploaderModal setOpenPost={setOpenPost} /> : null}
-      {detailedPost ? (
+
+      {detailedPost
+        ? /* (
         <PostDetailModal
           detailedPost={() => detailedPost}
           setDetailedPost={setDetailedPost}
-        />
-      ) : null}
+        />) */ null
+        : null}
     </Grid>
   );
 }
-UserProfile.propTypes = {
-  setOpenPost: PropTypes.bool.isRequired,
-  openPost: PropTypes.bool.isRequired,
-};

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from "react";
 import {
   Grid,
@@ -28,9 +29,13 @@ import {
   SettingsOutlined,
 } from "@material-ui/icons";
 import PropTypes from "prop-types";
+import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as actionTypes from "../../redux/actionTypes";
 import styles from "./navbar.module.css";
 import InstagramLogo from "../../assets/instagram_logo.svg.png";
 import Search from "../search/search.component";
+import { logOut } from "../../redux/thunks/account.thunk";
 
 const useStyles = makeStyles((theme) => ({
   profilePopOver: {
@@ -42,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { setOpenPost } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [icons, setIcons] = useState({
@@ -51,12 +57,12 @@ export default function Navbar(props) {
     favorite: false,
     profile: false,
   });
+  const history = useHistory();
 
   const handleClosePopOver = () => {
     setAnchorEl(null);
   };
   const handleIconClick = (e, name) => {
-    console.log(e);
     if (name === "profile") {
       setAnchorEl(e.currentTarget);
     }
@@ -89,7 +95,9 @@ export default function Navbar(props) {
             container
             justify="flex-start"
           >
-            <img src={InstagramLogo} alt="logo" className={styles.logo} />
+            <NavLink to="">
+              <img src={InstagramLogo} alt="logo" className={styles.logo} />
+            </NavLink>
           </Grid>
           <Grid
             item
@@ -108,10 +116,12 @@ export default function Navbar(props) {
               <IconButton
                 onClick={() => {
                   setOpenPost(true);
-                  console.log("open");
+                  dispatch({ type: actionTypes.POST_UPLOAD_MODAL });
                 }}
               >
-                <AddCircleOutlineOutlined color="primary" />
+                <label htmlFor="contained-button-file">
+                  <AddCircleOutlineOutlined color="primary" />
+                </label>
               </IconButton>
             </Grid>
           </Grid>
@@ -180,12 +190,15 @@ export default function Navbar(props) {
                   component="nav"
                   aria-label="main mailbox folders"
                 >
-                  <ListItem button>
-                    <ListItemIcon>
-                      <AccountCircleIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                  </ListItem>
+                  <NavLink to="/profile">
+                    <ListItem button>
+                      <ListItemIcon>
+                        <AccountCircleIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Profile" />
+                    </ListItem>
+                  </NavLink>
+
                   <ListItem button>
                     <ListItemIcon>
                       <BookmarkBorderRounded />
@@ -205,7 +218,16 @@ export default function Navbar(props) {
                     <ListItemText primary="Switch Accounts" />
                   </ListItem>
                   <Divider />
-                  <ListItem button component="a">
+
+                  <ListItem
+                    button
+                    component="a"
+                    onClick={() => {
+                      history.replace("/login");
+                      dispatch(logOut);
+                      localStorage.clear();
+                    }}
+                  >
                     <ListItemText primary="Logout" />
                   </ListItem>
                 </List>
