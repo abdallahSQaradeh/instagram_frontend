@@ -1,20 +1,18 @@
-import deepClone from "lodash.clonedeep";
 import * as actionTypes from "../actionTypes";
 
 const initialState = {
   posts: [],
+  authenticated: false,
+  userInfo: null,
+  expireIn: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case actionTypes.ADD_POST: {
-      const newState = deepClone(state);
-      newState.posts.push({
-        src: action.post.src,
-        caption: action.post.caption,
-      });
-      return newState;
-    }
+    case actionTypes.AUTH_USER:
+      return { ...state, authenticated: true, userInfo: action.user };
+    case actionTypes.CANCEL_AUTH_USER:
+      return { ...state, authenticated: false, userInfo: null };
     default:
       return { ...state };
   }
