@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { SettingsOutlined } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -34,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function UserProfileInfo() {
   const classes = useStyles();
+  const state = useSelector((storeState) => storeState);
+  console.log(state);
   return (
     <header>
       <Grid container justify="space-between">
