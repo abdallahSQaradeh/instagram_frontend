@@ -4,8 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import Slide from "@material-ui/core/Slide";
-import PropTypes from "prop-types";
+
 import {
   Avatar,
   DialogContentText,
@@ -44,24 +43,21 @@ const useStyles = makeStyles({
   },
 });
 export default function PostUploaderModal(props) {
-  const { setOpenPost } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
   const [imageSrc, setImageSrc] = useState({});
   const [caption, setCaption] = useState("");
   const handleClose = () => {
-    setOpenPost(false);
+    dispatch({ type: actionTypes.CLOSE_POST_UPLOAD_MODAL });
   };
   const handlePost = () => {
     dispatch({
       type: actionTypes.ADD_POST,
       post: { src: imageSrc, caption },
     });
-    setOpenPost(false);
+    dispatch({ type: actionTypes.CLOSE_POST_UPLOAD_MODAL });
   };
-  useEffect(() => {
-    setOpenPost(true);
-  }, [setOpenPost]);
+  useEffect(() => {}, []);
   const handleCaptionChange = (e) => {
     const { value } = e.target;
     setCaption(value);
@@ -151,6 +147,3 @@ export default function PostUploaderModal(props) {
     </div>
   );
 }
-PostUploaderModal.propTypes = {
-  setOpenPost: PropTypes.func.isRequired,
-};
