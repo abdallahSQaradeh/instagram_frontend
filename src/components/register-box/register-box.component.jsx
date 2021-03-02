@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Typography, makeStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import style from "./registerbox.module.css";
 
 const useStyles = makeStyles({
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
 });
 export default function RegisterBox(props) {
   const { text, linkText, url } = props;
-
+  const history = useHistory();
   const classes = useStyles();
   return (
     <div className={style["login-box"]}>
@@ -30,7 +31,12 @@ export default function RegisterBox(props) {
         <Link
           className={classes.nonDecoration}
           href={url}
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => {
+            e.preventDefault();
+
+            linkText === "Sign up" && history.push("/signup");
+            linkText === "Login" && history.push("/login");
+          }}
           color="primary"
         >
           {` ${linkText}`}

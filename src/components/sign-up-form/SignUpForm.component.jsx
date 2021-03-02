@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Button,
   TextField,
@@ -6,6 +9,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@material-ui/core";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import classNames from "classnames";
 import * as yup from "yup";
@@ -17,31 +21,38 @@ import deepClone from "lodash.clonedeep";
 import style from "./SignUpForm.module.css";
 import useStyles from "./style";
 import Divider from "../UI/Divider/Divider.component";
+import axiosAuth from "../../axios/auth";
+import useFacebook from "../../hooks/useFacebook";
 
 const signupSchema = yup.object().shape({
-  emailOrNumber: yup.string().email().required("please provide a valid email"),
-  fullName: yup.string().min(10).required("at least 10 character"),
+  email: yup.string().email().required("please provide a valid email"),
+  full_name: yup.string().min(10).required("at least 10 character"),
   username: yup
     .string()
     .required()
     .min(5)
     .matches(/^[A-z][A-z0-9]*$/, "atl least one letter, one number"),
-  password: yup.string().required().min(5),
+  password1: yup.string().min(5).required(),
 });
 
 export default function SignUpForm(props) {
   const classes = useStyles();
-  const [emailOrNumber, setEmailOrNumber] = useState("");
+  const form = useRef(null);
+  const history = useHistory();
+  const loginFacebook = useFacebook();
+  const [serverErrors, setServerErrors] = useState(null);
+
+  const [email, setEmailOrNumber] = useState("");
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [password1, setPassword] = useState("");
+  const [full_name, setFullName] = useState("");
   const [allValid, setAllValid] = useState(false);
   const [fieldStatus, setFieldStatus] = useState({
-    emailOrNumber: {
+    email: {
       valid: false,
       show: false,
     },
-    fullName: {
+    full_name: {
       valid: false,
       show: false,
     },
@@ -49,7 +60,7 @@ export default function SignUpForm(props) {
       valid: false,
       show: false,
     },
-    password: {
+    password1: {
       valid: false,
       show: false,
     },
@@ -59,8 +70,12 @@ export default function SignUpForm(props) {
   const [values, setValues] = useState({
     showPassword: false,
   });
+  const responseFacebook = (response) => {
+    loginFacebook(response, history);
+  };
+
   useEffect(() => {
-    const formData = { emailOrNumber, fullName, username, password };
+    const formData = { email, full_name, username, password1 };
     signupSchema
       .isValid(formData)
       .then((v) => {
@@ -69,7 +84,7 @@ export default function SignUpForm(props) {
       .catch((err) => {
         setAllValid(err);
       });
-  }, [emailOrNumber, password, username, fullName]);
+  }, [email, password1, username, full_name]);
   const validateField = (name, value) => {
     const showIconClone = deepClone(fieldStatus);
     yup
@@ -109,10 +124,10 @@ export default function SignUpForm(props) {
   };
 
   const setter = {
-    emailOrNumber: setEmailOrNumber,
+    email: setEmailOrNumber,
     username: setUsername,
-    password: setPassword,
-    fullName: setFullName,
+    password1: setPassword,
+    full_name: setFullName,
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -122,20 +137,41 @@ export default function SignUpForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /* 
-     signupSchema
+
+    const formData = { email, full_name, username, password1 };
+    formData.password2 = formData.password1;
+
+    signupSchema
       .validate(formData, { abortEarly: false })
-      .then(() => setValid(true))
+      .then(() => {
+        // setValid(true)
+        axiosAuth
+          .post("registration/", formData)
+          .then((response) => {
+            if (response.status === 201 || response.status === 200) {
+              history.replace("/login");
+            }
+          })
+          .catch((err) => {
+            const errors = [];
+            for (const key in err.response.data) {
+              if (key) {
+                errors.push({ error: err.response.data[key][0], key });
+              }
+            }
+            setServerErrors(errors);
+          });
+      })
       .catch((err) => {
-         console.dir(err);
         const Errors = err.inner.reduce((acc, current) => {
           acc[current.path] = current.message;
           return acc;
-        }, {}); 
-      }); */
+        }, {});
+        return Errors;
+      });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form ref={form} onSubmit={handleSubmit}>
       <Typography
         variant="h6"
         align="center"
@@ -145,18 +181,26 @@ export default function SignUpForm(props) {
         Sign up to see photos and videos from your friends.
       </Typography>
       <div className={style.facebook}>
-        <Button
-          startIcon={<FacebookIcon />}
-          fullWidth
-          className={classNames(
-            classes.btnText,
-            classes.facebook,
-            classes.whiteColor
+        <FacebookLogin
+          appId="420032525765818"
+          autoLoad
+          callback={responseFacebook}
+          render={(renderProps) => (
+            <Button
+              startIcon={<FacebookIcon />}
+              fullWidth
+              className={classNames(
+                classes.btnText,
+                classes.facebook,
+                classes.whiteColor
+              )}
+              onClick={renderProps.onClick}
+              variant="contained"
+            >
+              Log in with Facebook
+            </Button>
           )}
-          variant="contained"
-        >
-          Log in with Facebook
-        </Button>
+        />
       </div>
       <div className={classNames(style.container, style.mDivider)}>
         <Divider>OR</Divider>
@@ -171,16 +215,16 @@ export default function SignUpForm(props) {
           size="small"
           label="Mobile Number or Email"
           type="text"
-          name="emailOrNumber"
-          value={emailOrNumber}
+          name="email"
+          value={email}
           onChange={handleChange}
           InputProps={
-            fieldStatus.emailOrNumber.show
+            fieldStatus.email.show
               ? {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton disableRipple>
-                        {fieldStatus.emailOrNumber.valid ? (
+                        {fieldStatus.email.valid ? (
                           <CheckCircleIcon />
                         ) : (
                           <HighlightOffIcon color="error" />
@@ -203,16 +247,16 @@ export default function SignUpForm(props) {
           size="small"
           label="Full Name"
           type="text"
-          name="fullName"
-          value={fullName}
+          name="full_name"
+          value={full_name}
           onChange={handleChange}
           InputProps={
-            fieldStatus.fullName.show
+            fieldStatus.full_name.show
               ? {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton disableRipple>
-                        {fieldStatus.fullName.valid ? (
+                        {fieldStatus.full_name.valid ? (
                           <CheckCircleIcon />
                         ) : (
                           <HighlightOffIcon color="error" />
@@ -267,8 +311,8 @@ export default function SignUpForm(props) {
           size="small"
           label="Password"
           type={values.showPassword ? "text" : "password"}
-          name="password"
-          value={password}
+          name="password1"
+          value={password1}
           onChange={handleChange}
           InputProps={{
             endAdornment: (
@@ -285,6 +329,16 @@ export default function SignUpForm(props) {
           }}
         />
       </div>
+      <div className={style.inputContainer}>
+        {serverErrors &&
+          serverErrors.map((err) => {
+            return (
+              <p className={style.serverErrors} key={`${err.key}error`}>
+                {`*${err.error}`}
+              </p>
+            );
+          })}
+      </div>
       <div className={style.container}>
         <Button
           disabled={!allValid && true}
@@ -299,7 +353,7 @@ export default function SignUpForm(props) {
             root: classes.whiteColor,
           }} */
         >
-          Next
+          Sign Up
         </Button>
       </div>
       <div className={style.container}>
