@@ -3,8 +3,8 @@
 import "./App.css";
 import { ThemeProvider } from "@material-ui/core";
 import { Route, Switch, useHistory } from "react-router-dom";
-import {useSelector} from "react-redux"
-import MoreModal from "./pages/home/modals/more.modal"
+import { useSelector } from "react-redux";
+import MoreModal from "./pages/home/modals/more.modal";
 import PrivateRouter from "./routers/private-router";
 import theme from "./theme/theme";
 
@@ -17,8 +17,8 @@ import SignUp from "./pages/sign-up/sign-up.index";
 import PostUploaderModal from "./components/post-uploader/postUploaderModal.component";
 
 function App() {
-  const modals = useSelector(state=> state.modal)
-  const ui = useSelector(state=> state.ui)
+  const modals = useSelector((state) => state.modal);
+  const ui = useSelector((state) => state.ui);
   const history = useHistory();
   return (
     <ThemeProvider theme={theme}>
@@ -39,21 +39,16 @@ function App() {
               <Route exact path="/signup">
                 <SignUp />
               </Route>
-              <PrivateRouter
-                path=""
-                component={Home}
-                exact={false}
-              />
-            
+              <PrivateRouter path="" component={Home} exact={false} />
             </Switch>
           </div>
         </main>
 
-        {modals.postDetailModal?<div> yes </div> : null}
-        {modals.postMoreModal?<MoreModal /> :null }
-        {modals.postUploadModal?<PostUploaderModal /> : null}
-        
-        {ui.footer ?  <Footer />:null}
+        {modals.postDetailModal ? <div> yes </div> : null}
+        {modals.postMoreModal ? <MoreModal /> : null}
+        {modals.postUploadModal ? <PostUploaderModal /> : null}
+
+        {ui.footer ? <Footer /> : null}
       </div>
     </ThemeProvider>
   );
